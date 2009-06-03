@@ -3,6 +3,7 @@
 Gem::Specification.new do |s|
   s.name = %q{solr_query}
   s.version = "0.1.0"
+  s.description = %q{a DSL for creating solr queries}
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Cyril David"]
@@ -27,7 +28,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.3}
-  s.summary = %q{TODO}
+  s.summary = %q{This is basically a short library for asbtracting you from the dirty work of creating solr queries by hand}
   s.test_files = [
     "test/solr_query_test.rb",
      "test/test_helper.rb"
