@@ -153,4 +153,14 @@ class SolrQueryTest < Test::Unit::TestCase
       assert_equal 'allowed:all', result
     end
   end
+  
+  context "given condition 'allowed', 'some user here'" do
+    should "be allowed:\"some user here\"" do
+      result = SolrQuery.create do |q|
+        q.condition 'allowed', 'some user here'
+      end
+      
+      assert_equal 'allowed:"some user here"', result
+    end
+  end
 end

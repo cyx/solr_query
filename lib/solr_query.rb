@@ -39,7 +39,7 @@ class SolrQuery
   
   def condition( field, value, escaping = true )
     return if value.blank?
-    stream.push("#{field}:#{escape(value, escaping)}")
+    stream.push("#{field}:#{quote(escape(value, escaping))}")
   end
   
   def term( value, escaping = true )
@@ -71,6 +71,14 @@ class SolrQuery
     def escape( str, escaping = true )
       if escaping
         self.class.escape( str )
+      else
+        str
+      end
+    end
+    
+    def quote( str )
+      if str.index(' ')
+        "\"#{str}\""
       else
         str
       end
