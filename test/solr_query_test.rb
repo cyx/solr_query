@@ -163,4 +163,15 @@ class SolrQueryTest < Test::Unit::TestCase
       assert_equal 'allowed:"some user here"', result
     end
   end
+  
+  context "given condition 'allowed', 'bla' :not " do
+    should "be NOT(allowed:bla)" do
+      result = SolrQuery.create do |q|
+        q.condition 'allowed', 'bla', [ :not ]
+      end
+      
+      assert_equal 'NOT(allowed:bla)', result
+    end
+  end
+  
 end

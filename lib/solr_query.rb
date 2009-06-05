@@ -37,9 +37,15 @@ class SolrQuery
     @stream[-1]
   end
   
-  def condition( field, value, escaping = true )
+  def condition( field, value, args = [] )
     return if value.blank?
-    stream.push("#{field}:#{quote(escape(value, escaping))}")
+    escaping = args.include?( :escaping )
+    
+    if args.include?(:not)
+      stream.push("NOT(#{field}:#{quote(escape(value, escaping))})")
+    else
+      stream.push("#{field}:#{quote(escape(value, escaping))}")
+    end
   end
   
   def term( value, escaping = true )
@@ -77,7 +83,7 @@ class SolrQuery
     end
     
     def quote( str )
-      if str.index(' ')
+      if str.to_s.index(' ')
         "\"#{str}\""
       else
         str
