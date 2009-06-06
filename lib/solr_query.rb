@@ -39,7 +39,7 @@ class SolrQuery
   
   def condition( field, value, args = [] )
     return if value.blank?
-    escaping = args.include?( :escaping )
+    escaping = !args.include?( :raw )
     
     if args.include?(:not)
       stream.push("NOT(#{field}:#{quote(escape(value, escaping))})")
@@ -85,6 +85,8 @@ class SolrQuery
     def quote( str )
       if str.to_s.index(' ')
         "\"#{str}\""
+      elsif str.to_s.index(':')
+        str.gsub(':', ' ')
       else
         str
       end
