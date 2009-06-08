@@ -48,6 +48,17 @@ class SolrQuery
     end
   end
   
+  def match( field, value, args = [] )
+    return if value.blank?
+    escaping = !args.include?( :raw )
+    
+    if args.include?(:not)
+      stream.push("NOT(#{field}:#{like(value, escaping)})")
+    else
+      stream.push("#{field}:#{like(value, escaping)}")
+    end
+  end
+  
   def term( value, escaping = true )
     return if value.to_s.strip.blank?
     stream.push( escape(value, escaping) )
