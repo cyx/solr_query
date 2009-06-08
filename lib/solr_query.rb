@@ -61,11 +61,11 @@ class SolrQuery
   
   def term( value, escaping = true )
     return if value.to_s.strip.blank?
-    stream.push( escape(value, escaping) )
+    stream.push( quote(escape(value, escaping)) )
   end
   
   def like( value, escaping = true )
-    "#{quote(escape(value.downcase, escaping))}*"
+    "#{quote(escape(value.downcase, escaping) + '*')}"
   end
   
   def to_s( operator = AND )
