@@ -54,7 +54,7 @@ class SolrQuery
   end
   
   def like( value, escaping = true )
-    "#{escape(value.downcase, escaping)}*"
+    "#{quote(escape(value.downcase, escaping))}*"
   end
   
   def to_s( operator = AND )
