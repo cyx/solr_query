@@ -86,18 +86,22 @@ class SolrQuery
     end
     
     def escape( str, escaping = true )
-      if escaping
-        self.class.escape( str )
-      else
-        str
-      end
+      ret = 
+        if escaping
+          self.class.escape( str )
+        else
+          str
+        end
+      sanitize( ret )
+    end
+    
+    def sanitize( str )
+      str.gsub(':', ' ')
     end
     
     def quote( str )
       if str.to_s.index(' ')
         "\"#{str}\""
-      elsif str.to_s.index(':')
-        str.gsub(':', ' ')
       else
         str
       end
